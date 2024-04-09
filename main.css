@@ -1,0 +1,169 @@
+:root {
+  --cell-image-size-: 40px;
+  --option-border-color-: #606060;
+}
+
+/* Animations */
+@keyframes hover {
+    0% {
+      outline: 3px solid #1f53ff;
+    }
+    25% {
+      outline: 3px solid #ff1f48;
+    }
+    50% {
+      outline: 3px solid #1fff22;
+    }
+    75% {
+      outline: 3px solid #cbff1f;
+    }
+    100% {
+      outline: 3px solid #1f53ff;
+    }
+}
+
+/* Element's default style */
+* {
+  font-family: sans-serif;
+  font-weight: bold;
+  font-size: 17px;
+}
+
+html, body {
+  overflow: hidden;
+  margin: 0;
+}
+
+button {
+  background-color: #fff;
+  border: none;
+  padding: 5px;
+  margin: 2.5px 0 2.5px 0;
+}
+
+button:hover {
+  cursor: pointer;
+  background: #dff;
+}
+
+input[type=text],input[type=number],input[type=checkbox]{
+  padding: 5px;
+  margin: 2.5px 0 2.5px 0;
+}
+
+input[type=checkbox]{
+  width: 20px;
+  height: 20px;
+  margin-left: 10px;
+}
+
+/* Outer */
+.frame {
+  display: flex;
+}
+
+.frame .table-container {
+  margin-top: 100px;
+}
+
+/* Map Generation */
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+  backface-visibility: hidden;
+  z-index: -1;
+}
+
+th {
+  display: table-cell;
+  padding: 0;
+}
+
+th:hover {
+  cursor: pointer;
+  animation-name: hover;
+  animation-duration: 4s;
+  animation-iteration-count: infinite;
+}
+
+.image-containment-overlay {
+  position: relative;
+}
+
+.image-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.space {
+  width: var(--cell-image-size-);
+  height: var(--cell-image-size-);
+  display: inline-block;
+  float: left;
+}
+
+.img {
+  width: var(--cell-image-size-);
+  height: var(--cell-image-size-);
+  display: inline-block;
+  float: left;
+  user-select: none;
+}
+
+/* Control Bars */
+.control-bar {
+  position: absolute;
+  display: flex;
+  padding: 8px;
+  background: #ddd;
+  margin-left: 0;
+  width: 100%;
+  z-index: 1;
+}
+
+.control-bar .control-container {
+  margin: 2px 3px 2px 3px;
+  border-right: 1px solid var(--option-border-color-);
+  padding-right: 10px;
+}
+
+.control-bar .input-controls {
+  display: flex;
+  flex-direction: column;
+}
+
+.input-controls .input-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.control-bar button {
+  width: 100%;
+}
+
+.control-bar .details {
+  width: auto;
+}
+
+.control-bar .details p {
+  margin: 1px;
+}
+
+.normal {
+  font-weight: normal;
+}
+
+/* Structure */
+.top-divider {
+  border-top: 1px solid var(--option-border-color-);
+}
+
+/* Selection */
+[selected]{
+  animation-name: hover;
+  animation-duration: 4s;
+  animation-iteration-count: infinite;
+}

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="main.css">
+    <title>Backroom Map Generator</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  </head>
+  <body>
+    <div class="frame">
+      <div class="control-bar">
+        <div class="control-container button-controls">
+          <button class="generation-btn" type="button" onclick="generateMap()">Generate Map</button>
+          <button class="reset-btn" type="button" onclick="clearMap()">Clear Map</button>
+        </div>
+        <div class="control-container input-controls">
+          <div class="input-container">
+            <label for="width">Width: </label>
+            <input type="number" name="width" value="30" disabled>
+          </div>
+          <div class="input-container">
+            <label for="height">Height: </label>
+            <input type="number" name="height" value="30" disabled>
+          </div>
+        </div>
+        <div class="control-container input-controls">
+          <div class="input-container top-divider">
+            <label for="distribute-points-debug">Distribute Points Debug [W]</label>
+            <input type="checkbox" onclick="overlayImageDebug(this,'point-distribution','debug-path-dist')" name="distribute-points-debug">
+          </div>
+          <div class="input-container top-divider">
+            <label for="path-builder-debug">Path Builder Debug</label>
+            <input type="checkbox" onclick="overlayImageDebug(this,'path-builder','debug-arrow')" name="path-builder-debug">
+          </div>
+          <div class="input-container top-divider">
+            <label for="wall-builder-debug">Wall Builder Debug [B]</label>
+            <input type="checkbox" onclick="overlayImageDebug(this,'wall-builder','debug-wall')" name="wall-builder-debug">
+          </div>
+        </div>
+        <div style="display:none" id="GENERAL" class="control-container details">
+          <p class="title">General</p>
+          <p class="normal" id="TYPE"></p>
+          <p class="normal" id="SUBTYPE"></p>
+          <p class="normal" id="ROW"></p>
+          <p class="normal" id="COLUMN"></p>
+        </div>
+        <div style="display:none" class="control-container details" id="PATH_BUILDER">
+          <p class="title">Path Builder</p>
+          <p class="normal" id="ORIGIN"></p>
+          <p class="normal" id="DIRECTION"></p>
+          <p class="normal" id="ITERATION"></p>
+        </div>
+      </div>
+      <div class="table-container">
+        <table cellspacing="0" id="OUTPUT"></table>
+      </div>
+    </div>
+  </body>
+  <script src='https://unpkg.com/panzoom@9.4.0/dist/panzoom.min.js'></script>
+  <script type="text/javascript">
+    panzoom(document.getElementById("OUTPUT"));
+  </script>
+  <script type="text/javascript" src="arrayMap.js"></script>
+</html>
