@@ -1,0 +1,12 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/imgs/arrow-down.psd
+/imgs/arrow-left.psd
+/imgs/arrow-right.psd
+/imgs/arrow-up.psd
+/imgs/Border-label.psd
+/imgs/Wall-label.psd
+/imgs/wallpaper.psd
+/imgs/wallpaper_512.psd
