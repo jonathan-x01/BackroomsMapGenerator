@@ -97,89 +97,14 @@ function addOuterWall(){
   }
 }
 
-// X = left/right | -/+ | Column
-// y = down/up | -/+ | Row
-function isPathBlockedByWall(row, column, y, x){
-  console.log("=====");
-  console.log("Y: " + y);
-  console.log("X: " + x);
-  console.log("Row: " + row + " Column: " + column);
-  let checkedColumn, checkedRow;
-
-  function checkXStatus(newRow){
-    if (x < 0){
-      let newX = Math.abs(x);
-      for (let i = 0; i < newX; i++){
-        if (!checkIfOutOfBounds(newRow,column - i - 1)){
-          if (map[newRow][column - i - 1][0] == wall){
-            return true;
-          } else {
-            return false;
-          }
-        } else {
-          return true;
-        }
-      }
-    } else if (x > 0) {
-      for (let i = 0; i < x; i++){
-        let newCol = column + i;
-        if (!checkIfOutOfBounds(newRow,column + i + 1)){
-          if (map[newRow][column + i + 1][0] == wall){
-            return true;
-          } else {
-            return false;
-          }
-        } else {
-          return true;
-        }
-      }
+function isSinglePathBlockedByWall(x,y){
+  if (!checkIfOutOfBounds(x,y)){
+    //console.log("Row: " + x + " Column: " + y + " | Map: " + map[x][y][0]);
+    if (map[x][y][0] == wall){
+      return true;
     }
+    return false;
   }
-
-  if (y < 0){
-    let newY = Math.abs(y);
-    for (let i = 0; i < newY; i++){
-      let newNum = row - i;
-      if (!checkIfOutOfBounds(row + i + 1,column)){
-        if (map[row + i + 1][column][0] == wall){
-          return true;
-        } else {
-          return false;
-        }
-      } else {
-        return true;
-      }
-    }
-    checkXStatus(row - newY);
-
-  } else if (y > 0) {
-    for (let i = 0; i < y; i++){
-      let newNum = row - i - 1;
-      console.group("Up")
-      console.log(row);
-      console.log(i - 1);
-      console.log(row - i - 1);
-      console.log("Current Row: " + row);
-      console.log("New Row: " + newNum)
-      console.log("Column: " + column);
-      console.log(map[row - i - 1]);
-      console.log(map[row - i - 1]);
-      console.log("Up: " + map[row - i - 1]);
-      console.groupEnd();
-      if (!checkIfOutOfBounds(row - 1,column)){
-        if (map[row - i - 1][column][0] == wall){
-          return true;
-        } else {
-          return false;
-        }
-      } else {
-        return true;
-      }
-
-    }
-    checkXStatus(row + y)
-  }
-  //console.log("=====");
 }
 
 function checkIfOutOfBounds(row, column){
@@ -193,8 +118,6 @@ function checkIfOutOfBounds(row, column){
 }
 
 // Generates a wall path.
-// Row = The row of the map array.
-// Column = The column of the map array.
 function pathBuilder(row, column){
   // For debugging purposes
   let red = Math.floor(Math.random() * 255);
@@ -215,14 +138,6 @@ function pathBuilder(row, column){
     // Get a random number between 0 and the total points.
     let random = Math.floor(Math.random() * totalPoints)
 
-    /*function getPercentage(outOf){
-      let decimal = outOf * 0.01;
-      return totalPoints * decimal;
-    }*/
-
-    // X = left/right | -/+ | Column
-    // y = down/up | -/+ | Row
-    //
     // The path builder conditions used to generate a path.
     // Is the random number less then up. aka check to see if the up is in the selection
     if (random <= up){
@@ -230,36 +145,36 @@ function pathBuilder(row, column){
       rowIndex -= 1;
       outputWall += upDir;
       if (checkIfOutOfBounds(rowIndex, columnIndex)) break;
-      if (isPathBlockedByWall(row, column,1,0)) break;
-      if (isPathBlockedByWall(row, column,1,1)) break;
-      if (isPathBlockedByWall(row, column,1,-1)) break;
+      if (isSinglePathBlockedByWall(row+1, column)) break;
+      if (isSinglePathBlockedByWall(row+1, column+1)) break;
+      if (isSinglePathBlockedByWall(row+1, column-1)) break;
     // Check to see if the right path is selected.
     } else if (random <= up + right){
       // Sets the column index to go right.
       columnIndex += 1;
       outputWall += rightDir;
       if (checkIfOutOfBounds(rowIndex, columnIndex)) break;
-      if (isPathBlockedByWall(row, column,0,1)) break;
-      if (isPathBlockedByWall(row, column,1,1)) break;
-      if (isPathBlockedByWall(row, column,-1,1)) break;
+      if (isSinglePathBlockedByWall(row, column+1)) break;
+      if (isSinglePathBlockedByWall(row+1, column+1)) break;
+      if (isSinglePathBlockedByWall(row-1, column+1)) break;
     // Check to see if the down path is selected.
     } else if (random <= up + right + down){
       // Sets the row index to go downwards.
       rowIndex += 1;
       outputWall += downDir;
       if (checkIfOutOfBounds(rowIndex, columnIndex)) break;
-      if (isPathBlockedByWall(row, column,-1,0)) break;
-      if (isPathBlockedByWall(row, column,-1,1)) break;
-      if (isPathBlockedByWall(row, column,-1,-1)) break;
+      if (isSinglePathBlockedByWall(row-1, column)) break;
+      if (isSinglePathBlockedByWall(row-1, column+1)) break;
+      if (isSinglePathBlockedByWall(row-1, column-1)) break;
     // Check to see if the left path is selected
     } else if (random <= up + right + down + left){
       // Sets the column index to go left.
       columnIndex -= 1;
       outputWall += leftDir;
       if (checkIfOutOfBounds(rowIndex, columnIndex)) break;
-      if (isPathBlockedByWall(row, column,-1,1)) break;
-      if (isPathBlockedByWall(row, column,1,-1)) break;
-      if (isPathBlockedByWall(row, column,0,-1)) break;
+      if (isSinglePathBlockedByWall(row-1, column+1)) break;
+      if (isSinglePathBlockedByWall(row+1, column-1)) break;
+      if (isSinglePathBlockedByWall(row, column-1)) break;
       // Check to see if the end path is selected. This is for any points not within range.
     } else {
       // Breaks the loop, stopping the path builder.
@@ -274,7 +189,7 @@ function pathBuilder(row, column){
 // This generates a map to attach to the map array.
 function generateMapArray(){
   // How often the wall will spawn in a space. The higher the number, the rarer the chance of a wall placing.
-  let wallChance = 6;
+  let wallChance = 2;
   // Loops through rows.
   for (let a = 0; a < map.length; a++){
     // Gets a random number between 0 and the designated wall chance.
@@ -285,22 +200,16 @@ function generateMapArray(){
       let randomWallSecond = Math.floor(Math.random() * wallChance);
       // Checks to see if both random values matches.
       if (randomWallFirst == randomWallSecond){
-        // X = left/right | -/+ | Column
-        // y = down/up | -/+ | Row
-        console.log(isPathBlockedByWall(a, b,1,0));
-        console.log(isPathBlockedByWall(a, b,0,-1));
-        console.log(isPathBlockedByWall(a, b,-1,0));
-        console.log(isPathBlockedByWall(a, b,0,1));
         if (
-          !isPathBlockedByWall(a, b,1,0) ||
-          !isPathBlockedByWall(a, b,0,-1) ||
-          !isPathBlockedByWall(a, b,-1,0) ||
-          !isPathBlockedByWall(a, b,0,1)
-        ){
+          !(isSinglePathBlockedByWall(a-1, b) ||
+          isSinglePathBlockedByWall(a, b-1) ||
+          isSinglePathBlockedByWall(a-1, b-1) ||
+          isSinglePathBlockedByWall(a-1, b+1))
+        ){;
           // Places a wall.
           map[a][b] = wall + pointDist;
           // Creates a wall path.
-          //pathBuilder(b, a)
+          pathBuilder(a, b)
         }
       }
     }
@@ -365,8 +274,6 @@ const DOMMapGeneration = {
 
 // This converts the map array into a more eye friendly DOM.
 function outputMap(){
-  //let mapFinale = "";
-
   // Loops through every row.
   for (let a = 0; a < map.length; a++){
     // Creates a table row element.
@@ -441,7 +348,6 @@ function outputMap(){
             colorCode = colorCode.replace("[","rgb(");
             // Replaces last bracket with the ending.
             colorCode = colorCode.replace("]",")");
-            //wall.setAttribute("style","outline: 3px solid " + colorCode);
             // Applies the colorCode for use in debugging.
             wall.setAttribute("path-builder-color",colorCode)
           }
@@ -479,11 +385,8 @@ function outputMap(){
         // If a space then it will store a span empty in the selected table data.
         DOMMapGeneration.create.generation.space(tableData);
       }
-      //mapFinale += " " + map[a][b];
     }
-    //mapFinale += "<br>";
   }
-  //return mapFinale;
 }
 
 // This will reset the entire map including the array and DOM generation.
@@ -575,9 +478,4 @@ function generateMap(){
   // Generates and output DOM map
   outputMap();
   attachTableDataEvents();
-
-  // X = left/right | -/+ | Row
-  // y = down/up | -/+ | Column
-  // column, row, y, x
-  //console.log(isPathBlockedByWall(3,5,-4,3));
 }

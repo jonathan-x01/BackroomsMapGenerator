@@ -49,6 +49,7 @@ button:hover {
 input[type=text],input[type=number],input[type=checkbox]{
   padding: 5px;
   margin: 2.5px 0 2.5px 0;
+  width: 50px;
 }
 
 input[type=checkbox]{
