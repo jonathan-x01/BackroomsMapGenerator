@@ -118,6 +118,8 @@ function checkIfOutOfBounds(row, column){
 }
 
 // Generates a wall path.
+// Row = The row of the map array.
+// Column = The column of the map array.
 function pathBuilder(row, column){
   // For debugging purposes
   let red = Math.floor(Math.random() * 255);
@@ -215,6 +217,9 @@ function generateMapArray(){
     }
   }
   addOuterWall();
+  if (isScreenWidthReady()){
+    hideControlBar();
+  }
 }
 
 // The DOM json to generate DOM elements
@@ -348,6 +353,7 @@ function outputMap(){
             colorCode = colorCode.replace("[","rgb(");
             // Replaces last bracket with the ending.
             colorCode = colorCode.replace("]",")");
+            //wall.setAttribute("style","outline: 3px solid " + colorCode);
             // Applies the colorCode for use in debugging.
             wall.setAttribute("path-builder-color",colorCode)
           }

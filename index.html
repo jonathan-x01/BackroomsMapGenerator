@@ -5,25 +5,31 @@
     <link rel="stylesheet" href="main.css">
     <title>Backroom Map Generator</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   </head>
   <body>
     <div class="frame">
-      <div class="control-bar">
+      <button class="mobile-btn mobile-control-bar-menu" onclick="showControlBar()"><i class="fa fa-bars"></i></button>
+      <button class="mobile-btn mobile-regenerate-btn" onclick="generateMap()">Regenerate</button>
+      <div id="CONTROL_BAR" class="control-bar">
         <div class="control-container button-controls">
           <button class="generation-btn" type="button" onclick="generateMap()">Generate Map</button>
           <button class="reset-btn" type="button" onclick="clearMap()">Clear Map</button>
+          <button class="close-btn" type="button" onclick="hideControlBar()">Close Menu</button>
         </div>
         <div class="control-container input-controls">
+          <p>Size</p>
           <div class="input-container">
             <label for="width">Width: </label>
-            <input type="number" name="width" value="30" disabled>
+            <input type="number" name="width" value="30">
           </div>
           <div class="input-container">
             <label for="height">Height: </label>
-            <input type="number" name="height" value="30" disabled>
+            <input type="number" name="height" value="30">
           </div>
         </div>
         <div class="control-container input-controls">
+          <p>Debugger</p>
           <div class="input-container top-divider">
             <label for="distribute-points-debug">Distribute Points Debug [W]</label>
             <input type="checkbox" onclick="overlayImageDebug(this,'point-distribution','debug-path-dist')" name="distribute-points-debug">
@@ -61,4 +67,5 @@
     panzoom(document.getElementById("OUTPUT"));
   </script>
   <script type="text/javascript" src="arrayMap.js"></script>
+  <script type="text/javascript" src="responsive-mobile.js"></script>
 </html>

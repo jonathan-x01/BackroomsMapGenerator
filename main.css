@@ -3,6 +3,31 @@
   --option-border-color-: #606060;
 }
 
+/* Responsive */
+@media screen and (max-width: 580px) {
+  /* Control bars */
+  .mobile-btn {
+    display: block !important;
+  }
+
+  .control-bar {
+    height: 100%;
+    flex-direction: column-reverse;
+  }
+
+  .control-bar p {
+    border-top: 3px solid var(--option-border-color-);
+  }
+
+  .control-bar .control-container {
+    border-right: none !important;
+  }
+
+  .control-bar button.close-btn {
+    display: block !important;
+  }
+}
+
 /* Animations */
 @keyframes hover {
     0% {
@@ -113,6 +138,31 @@ th:hover {
 }
 
 /* Control Bars */
+.mobile-btn {
+  background: #ddd;
+  display: none;
+  position: absolute;
+  padding: 15px;
+  margin: 10px;
+  z-index: 1;
+}
+
+.mobile-btn i {
+  font-size: 30px;
+}
+
+.mobile-control-bar-menu {
+  border-radius: 50%;
+  bottom: 0;
+  right: 0;
+}
+
+.mobile-regenerate-btn {
+  border-radius: 12px;
+  left: 0;
+  bottom: 0;
+}
+
 .control-bar {
   position: absolute;
   display: flex;
@@ -120,7 +170,13 @@ th:hover {
   background: #ddd;
   margin-left: 0;
   width: 100%;
-  z-index: 1;
+  z-index: 2;
+}
+
+.control-bar p {
+  font-size: 20px;
+  margin: 0;
+  text-align: center;
 }
 
 .control-bar .control-container {
@@ -143,6 +199,10 @@ th:hover {
 
 .control-bar button {
   width: 100%;
+}
+
+.control-bar button.close-btn {
+  display: none;
 }
 
 .control-bar .details {
