@@ -11,6 +11,8 @@
   }
 
   .control-bar {
+    position: fixed !important;
+    justify-content: flex-end;
     height: 100%;
     flex-direction: column-reverse;
   }
