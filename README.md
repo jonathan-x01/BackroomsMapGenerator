@@ -1,5 +1,5 @@
 # Backrooms Map Generator
-[![pages-build-deployment](https://github.com/jonathan-x01/BackroomsMapGenerator/actions/workflows/pages/pages-build-deployment/badge.svg)](https://github.com/jonathan-x01/BackroomsMapGenerator/actions/workflows/pages/pages-build-deployment)
+[![pages-build-deployment](https://github.com/jonathan-x01/BackroomsMapGenerator/actions/workflows/pages/pages-build-deployment/badge.svg)](https://github.com/jonathan-x01/BackroomsMapGenerator/actions/workflows/pages/pages-build-deployment) [![License: CC BY-NC-SA 4.0](https://img.shields.io/badge/License-CC_BY--NC--SA_4.0-lightgrey.svg)](https://creativecommons.org/licenses/by-nc-sa/4.0/)
 
 ## Summary
 This project is designed as a prototype for the [Project Backrooms](https://github.com/jonathan-x01/project-backroom-1.20.4) mod. With the new update, I restructured my project to allow others to easily create and implement their own algorithms into the map generator to allow more of a variety and help bring the adventure of the Backrooms into reality. I am still working on it to help make it easier to create and debug algorithms, but for now, I have made it easier to just implement the algorithm.
@@ -54,3 +54,31 @@ The `my_block` is the identifier, while the `myBlock` within the `BlockData()` i
 ``` javascript
 blocks.get('my_block').getSrc();
 ```
+
+### Creating your algorithm
+When creating your own algorithm, you will use a lot of brain power, you probably will get brain fatigue; however, if you have the passion and motivation, you can accomplish anything. To help, I try to make it as easy as possible. I originally created this project to help me with my algorithm for my Minecraft mod since it can help me visualize it better, and so I don't have to constantly run Minecraft to ensure it works.
+
+With your newly created algorithm class, you will be called `this.map` a lot. `this.map` is a 2D array that is used as your canvas. Which I think is pretty straightforward. Now, when placing a block at the designated location, you will need to insert data into the chosen cell. Currently, this is still a work in progress and I plan to make it a lot easier in the future but when placing the data in the cell, it need to be in this format:
+``` javascript
+{
+   type: "wall",
+   texture: "my_block",
+   debug: {
+      type: "wall"
+   }
+}
+```
+
+Key:
+type:string = The type of cell it is. This can be anything you want it to be.
+texture:string = The identifier of the texture to use for the selected cell. This has to be a block you have registered previously in the `js/main.js` file. 
+debug-type:string = This is the subtype of the current cell.
+
+Again, all the cell data is still a work in progress and may be changed later on.
+
+## Backlog
+I do have a backlog of what I plan to change and improve to help make this tool as useful as possible.
+
+1. Style overhaul - I plan to change the style of the page to make it look unique.
+2. Cell data improvement - To make it easier to set cell data, which will hopefully make my project more stable.
+3. Debugging Tools - Currently, I have it hardcoded where only my Point Distribution algorithm has the tools necessary, where I could easily debug it, but I plan to improve it where anyone can use debugging features.
