@@ -1,0 +1,8 @@
+{
+  "title":"Backroom Map Generator",
+  "description":"A prototype for the Minecraft mod Project::Backrooms. This tools creates a grid-like layout for Level 0 from the backrooms. It uses arrays for the grid like map and it randomizes grids and create paths from the origin point.",
+  "tags":["minecraft","prototype","arrays","creepypasta","modding"],
+  "technologies":["html","javascript","css"],
+  "genre":"tools",
+  "hidden":false
+}

@@ -19,44 +19,26 @@ const imgClassName = "img";
 const spanClassName = "space";
 
 // This is the starting map to generate the backrooms.
-var map = [
-  ["O","O","O","O","O","O","O","O","O","O","O","O","O","O","O","O","O","O","O","O","O","O","O","O","O","O","O"],
-  ["O","O","O","O","O","O","O","O","O","O","O","O","O","O","O","O","O","O","O","O","O","O","O","O","O","O","O"],
-  ["O","O","O","O","O","O","O","O","O","O","O","O","O","O","O","O","O","O","O","O","O","O","O","O","O","O","O"],
-  ["O","O","O","O","O","O","O","O","O","O","O","O","O","O","O","O","O","O","O","O","O","O","O","O","O","O","O"],
-  ["O","O","O","O","O","O","O","O","O","O","O","O","O","O","O","O","O","O","O","O","O","O","O","O","O","O","O"],
-  ["O","O","O","O","O","O","O","O","O","O","O","O","O","O","O","O","O","O","O","O","O","O","O","O","O","O","O"],
-  ["O","O","O","O","O","O","O","O","O","O","O","O","O","O","O","O","O","O","O","O","O","O","O","O","O","O","O"],
-  ["O","O","O","O","O","O","O","O","O","O","O","O","O","O","O","O","O","O","O","O","O","O","O","O","O","O","O"],
-  ["O","O","O","O","O","O","O","O","O","O","O","O","O","O","O","O","O","O","O","O","O","O","O","O","O","O","O"],
-  ["O","O","O","O","O","O","O","O","O","O","O","O","O","O","O","O","O","O","O","O","O","O","O","O","O","O","O"],
-  ["O","O","O","O","O","O","O","O","O","O","O","O","O","O","O","O","O","O","O","O","O","O","O","O","O","O","O"],
-  ["O","O","O","O","O","O","O","O","O","O","O","O","O","O","O","O","O","O","O","O","O","O","O","O","O","O","O"],
-  ["O","O","O","O","O","O","O","O","O","O","O","O","O","O","O","O","O","O","O","O","O","O","O","O","O","O","O"],
-  ["O","O","O","O","O","O","O","O","O","O","O","O","O","O","O","O","O","O","O","O","O","O","O","O","O","O","O"],
-  ["O","O","O","O","O","O","O","O","O","O","O","O","O","O","O","O","O","O","O","O","O","O","O","O","O","O","O"],
-  ["O","O","O","O","O","O","O","O","O","O","O","O","O","O","O","O","O","O","O","O","O","O","O","O","O","O","O"],
-  ["O","O","O","O","O","O","O","O","O","O","O","O","O","O","O","O","O","O","O","O","O","O","O","O","O","O","O"]
-]
+var map = generateArrayGrid(30,30);
 
 // Generates the size of the map array
-function generateArrayGrid(row, column){
-  let newArray = new Array(row);
-  // Loops through the selected row amount
-  for (let i = 0; i < row; i++){
-    // Creates a new column
-    columnArray = [];
+function generateArrayGrid(row, col){
+    let newArray = new Array(row);
+    // Loops through the selected row amount
+    for (let i = 0; i < row; i++) {
+        // Creates a new column
+        columnArray = [];
 
-    // Loops through the selected column amount
-    for (let i = 0; i < column; i++){
-      // Assigns a space key to each iteration of column array.
-      columnArray[i] = space;
+        // Loops through the selected column amount
+        for (let i = 0; i < col; i++) {
+            // Assigns a space key to each iteration of column array.
+            columnArray[i] = space;
+        }
+
+        // copies and pastes every column iteration to every row.
+        newArray[i] = columnArray;
     }
-
-    // copies and pastes every column iteration to every row.
-    newArray[i] = columnArray;
-  }
-  return newArray;
+    return newArray;
 }
 
 // The output element to place the visuals at.
@@ -79,10 +61,10 @@ function resetMap(){
 
 // This will add a wall around the map
 function addOuterWall(){
-  let wallWithDebug = wall + wallBuild;
+    let wallWithDebug = wall + wallBuild;
   // Adds a northern wall
   for (let i = 0; i < map[0].length; i++){
-    map[0][i] = wallWithDebug;
+      map[0][i] = wallWithDebug;
   }
 
   // Adds a western and eastern wall
@@ -201,7 +183,7 @@ function generateMapArray(){
       // Gets another random value between 0 and the designated wall chance.
       let randomWallSecond = Math.floor(Math.random() * wallChance);
       // Checks to see if both random values matches.
-      if (randomWallFirst == randomWallSecond){
+        if (randomWallFirst == randomWallSecond) {
         if (
           !(isSinglePathBlockedByWall(a-1, b) ||
           isSinglePathBlockedByWall(a, b-1) ||
@@ -263,19 +245,20 @@ const DOMMapGeneration = {
   // Includes a list of images to use for the map.
   imageSrc : {
     // The basic backroom level 0 wallpaper.
-    wallpaper : "imgs/level_0_wallpaper_512.png",
-    up_arrow : "imgs/arrow-up.png",
-    right_arrow : "imgs/arrow-right.png",
-    down_arrow : "imgs/arrow-down.png",
-    left_arrow : "imgs/arrow-left.png",
-    wall : "imgs/Wall-label.png",
-    border : "imgs/Border-label.png"
+      wallpaper: blocks.getBlockData('level0_wallpaper').getSrc(),
+      up_arrow: debugOverlays.getDebugOverlayData("arrow_up").getSrc(),
+      right_arrow : debugOverlays.getDebugOverlayData("arrow_right").getSrc(),
+      down_arrow: debugOverlays.getDebugOverlayData("arrow_down").getSrc(),
+      left_arrow: debugOverlays.getDebugOverlayData("arrow_left").getSrc(),
+      wall: debugOverlays.getDebugOverlayData("wall").getSrc(),
+      border: debugOverlays.getDebugOverlayData("border").getSrc()
   },
   // Removes the generated image.
   remove : function(){
     output.innerHTML = "";
   }
 }
+
 
 // This converts the map array into a more eye friendly DOM.
 function outputMap(){
@@ -403,30 +386,6 @@ function clearMap(){
   resetMap();
 }
 
-function overlayImageDebug(elmnt, debugTypeVar, overlayImageClass){
-  const debugType = document.querySelectorAll(`[debug-type=${debugTypeVar}]`);
-  const className = document.getElementsByClassName(overlayImageClass);
-
-  if (elmnt.checked){
-    debugType.forEach((value, i) => {
-      var colorAttr = value.getAttribute("path-builder-color");
-      if (colorAttr){
-        value.style.border = "3px solid " + colorAttr;
-      } else {
-        value.style.border = "3px solid black";
-      }
-      className[i].style.display = "block";
-      className[i].style.border = "3px solid transparent";
-    });
-  } else {
-    debugType.forEach((value, i) => {
-      value.style.border = "";
-      className[i].style.display = "none";
-      className[i].style.border = "3px solid transparent";
-    });
-  }
-}
-
 function attachTableDataEvents(){
   const tableDataList = document.getElementsByTagName("th");
   let currentSelected = -1;
@@ -474,14 +433,20 @@ function showDebugDetails(data){
 }
 
 // Generates a map.
-function generateMap(){
-  // Generates the map array size
-  map = generateArrayGrid(widthInput.value, heightInput.value);
-  // This will reset the entire map
-  clearMap();
-  // Generates map structure
-  generateMapArray();
-  // Generates and output DOM map
-  outputMap();
-  attachTableDataEvents();
+function generateMap() {
+    getSelectedAlgorithm().func.generate();
+    var visual = new VisualizeMap(getSelectedAlgorithm());
+    // Generates the map array size
+    map = generateArrayGrid(widthInput.value, heightInput.value);
+    // This will reset the entire map
+    clearMap();
+    // Generates map structure
+    generateMapArray();
+    // Generates and output DOM map
+    outputMap();
+    attachTableDataEvents();
+    visual.clear();
+    //getSelectedAlgorithm().func.setSize(widthInput.value, heightInput.value);
+    visual.generate();
+    attachDebugEvents();
 }

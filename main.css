@@ -95,6 +95,22 @@ input[type=checkbox]{
 }
 
 /* Map Generation */
+.map-container {
+    margin-top: 100px;
+}
+
+.map-container .map {
+    display: grid;
+    grid-template-columns: repeat(5, 40px);
+    grid-template-rows: repeat(5, 40px);
+    gap: 0px;
+}
+
+.map-block {
+    width: 40px;
+    height: 40px;
+}
+
 table {
   border-collapse: collapse;
   border-spacing: 0;
@@ -107,18 +123,18 @@ th {
   padding: 0;
 }
 
-th:hover {
-  cursor: pointer;
-  animation-name: hover;
-  animation-duration: 4s;
-  animation-iteration-count: infinite;
+th:hover, .map-block:hover {
+    cursor: pointer;
+    animation-name: hover;
+    animation-duration: 4s;
+    animation-iteration-count: infinite;
 }
 
-.image-containment-overlay {
+.image-containment-overlay, .texture-containment-overlay {
   position: relative;
 }
 
-.image-overlay {
+.image-overlay, .block-debug-overlay {
   position: absolute;
   top: 0;
   left: 0;
@@ -131,7 +147,7 @@ th:hover {
   float: left;
 }
 
-.img {
+.img, .block-texture {
   width: var(--cell-image-size-);
   height: var(--cell-image-size-);
   display: inline-block;
@@ -229,4 +245,11 @@ th:hover {
   animation-name: hover;
   animation-duration: 4s;
   animation-iteration-count: infinite;
+}
+
+/* Canvas */
+canvas {
+    margin-top: 50px;
+    border: 1px solid black;
+    image-rendering: pixelated;
 }
